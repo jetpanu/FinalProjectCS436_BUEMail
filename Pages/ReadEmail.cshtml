@@ -1,0 +1,67 @@
+﻿@page
+@model FinalProject.Pages.ReadEmailModel
+@{
+    ViewData["Title"] = "Reading Email";
+}
+
+<div class="email-container">
+    <h2 class="text-center mb-4">Reading Email</h2>
+
+    <div>
+        <h3 class="mb-3">From: @Model.EmailSender</h3>
+        <h6 class="mb-2">Subject: @Model.EmailSubject</h6>
+        <h6 class="mb-2">Sending Date: @Model.EmailDate.AddHours(7).ToString("dd/MM/yyyy HH:mm:ss tt")</h6>
+        <h6 class="mb-2">Message:</h6>
+        <div class="email-message" style="color: #666;"> @Html.Raw(Model.EmailContent)</div>
+    </div>
+    }
+</div>
+
+<div class="text-center mt-3">
+    <a class="btn btn-custom" href="/Index">HOME</a>
+</div>
+
+
+<style >
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .email-container {
+        background-color: #fff;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    h3,
+    h6 {
+        color: #444;
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    .email-message {
+        color: #333;
+        line-height: 1.6;
+        white-space: pre-wrap;
+    }
+
+    .btn-custom {
+        border-radius: 20px;
+        padding: 10px 20px;
+        text-decoration: none;
+        background-color: #fff;
+        transition: background-color 0.3s ease-in-out;
+        font-weight: bold;
+    }
+
+</style>

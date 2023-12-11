@@ -1,0 +1,60 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("/Identity/Account/Login");
+    }
+}
+
+<center><img src="images/logo.jpg" width="400" /></center>
+
+@if (ViewData["Message"] != null)
+{
+    <div id="messageDiv" class="alert alert-success" role="alert">
+        @ViewData["Message"]
+    </div>
+}
+
+
+<script>
+    setTimeout(function () {
+        document.getElementById('messageDiv').style.display = 'none';
+    }, 3000);
+</script>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Date/Time</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.listEmails)
+        {
+            <tr>
+                <td>@item.EmailSender</td>
+                <td>
+                    @if (item.EmailIsRead != true)
+                    {
+                        <img src="images/yellow.gif" height="10pt">
+                    }
+                    <a href="ReadEmail?emailid=@item.Id">@item.EmailSubject</a>
+                </td>
+                <td>@item.EmailDate.GetValueOrDefault().AddHours(7).ToString("dd/MM/yyyy HH:mm:ss tt")</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="DeleteEmail?emailid=@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-primary btn-sm" href="/ComposeMail?Sender=@User.Identity.Name">Compose New Email</a>
